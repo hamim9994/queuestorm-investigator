@@ -87,13 +87,16 @@ class BaseAnalyzer(ABC):
     
     def determine_severity(self, case_type: CaseType, amount: float) -> Severity:
         """Determine severity based on case type and amount"""
-        # High value threshold
         HIGH_VALUE = 10000
+        
+        # Phishing is ALWAYS critical
+        if case_type == CaseType.PHISHING_SOCIAL_ENGINEERING:
+            return Severity.CRITICAL
         
         if amount >= HIGH_VALUE:
             return Severity.CRITICAL
         
-        if case_type in [CaseType.PHISHING_SOCIAL_ENGINEERING, CaseType.DUPLICATE_PAYMENT]:
+        if case_type in [CaseType.DUPLICATE_PAYMENT]:
             return Severity.HIGH
         
         if case_type in [CaseType.WRONG_TRANSFER, CaseType.PAYMENT_FAILED]:

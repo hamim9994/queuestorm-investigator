@@ -1,4 +1,6 @@
-from fastapi import FastAPI, HTTPException
+# app/main.py
+from fastapi import FastAPI, HTTPException, Request
+from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 import time
 import logging
@@ -14,6 +16,14 @@ app = FastAPI(title="QueueStorm Investigator", version="1.0.0")
 
 # Initialize analyzer
 analyzer = TicketAnalyzer()
+
+# Custom exception handler for validation errors
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request: Request, exc: RequestValidationError):
+    return JSONResponse(
+        status_code=422,
+        content={"detail": "Invalid input"}
+    )
 
 @app.get("/health")
 async def health_check():
@@ -36,7 +46,8 @@ async def analyze_ticket(request: AnalyzeTicketRequest):
         # Process the ticket
         response = analyzer.analyze(request)
         
-        return response.dict()
+        # FIX: Use model_dump() instead of dict() (Pydantic v2)
+        return response.model_dump()
         
     except HTTPException:
         raise
