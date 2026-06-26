@@ -1,5 +1,7 @@
 # QueueStorm Investigator
 
+**Live demo:** https://queuestorm-investigator-dv2j.onrender.com/
+
 An AI-powered FastAPI service that analyzes customer complaint tickets together with their transaction history to surface root cause, risk, and recommended actions.
 
 ## Features
