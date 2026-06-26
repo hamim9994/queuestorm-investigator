@@ -1,7 +1,50 @@
-# Create .gitignore file
-echo "venv/" >> .gitignore
-echo "__pycache__/" >> .gitignore
-echo "*.pyc" >> .gitignore
-echo ".env" >> .gitignore
-echo ".pytest_cache/" >> .gitignore
-echo ".coverage" >> .gitignore
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg
+*.egg-info/
+build/
+dist/
+.eggs/
+
+# --- Virtual environments ---
+venv/
+.venv/
+env/
+ENV/
+
+# --- Environment & secrets ---
+.env
+.env.*
+!.env.example
+
+# --- IDEs & editors ---
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# --- Testing & coverage ---
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+.tox/
+.cache
+
+# --- Logs ---
+*.log
+logs/
+
+# --- Docker ---
+# Uncomment if you want to ignore built images locally
+# *.tar
+# *.img
+
+# --- OS ---
+Thumbs.db
